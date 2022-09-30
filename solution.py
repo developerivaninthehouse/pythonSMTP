@@ -1,9 +1,5 @@
-from curses import raw
-from email import message
-from http import client
-from mailbox import MaildirMessage
 from socket import *
-from sqlite3 import connect
+
 
 
 def smtp_client(port=1025, mailserver='127.0.0.1'):
