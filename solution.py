@@ -39,7 +39,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     mailFrom = "MAIL FROM:\r\n"
     clientSocket.send(mailFrom.encode())
-    recv1 = clientSocket.recv(1024).decode()
+    recv2 = clientSocket.recv(1024).decode()
 
     # Fill in end
 
@@ -48,8 +48,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     rcpt = "RCPT TO:\r\n"
     clientSocket.send(rcpt.encode())
-
-    recv1 = clientSocket.recv(1024)
+    recv3 = clientSocket.recv(1024).decode()
 
 
     # Fill in end
@@ -58,14 +57,16 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Fill in start
     data = 'DATA\r\n'
     clientSocket.send(data.encode())
-    recv1 = clientSocket.recv(1024).decode()
+    recv4 = clientSocket.recv(1024).decode()
 
     # Fill in end
 
     # Send message data.
     # Fill in start
+    
 
-    message = raw_input("testing testing:\r\n")
+    clientSocket.send("testing testing:\r\n".encode())
+    recv5 = clientSocket.recv(1024).decode()
 
     # Fill in end
 
@@ -73,7 +74,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Fill in start
 
     mailMessage ="\r\n.\r\n"
-    clientSocket.send(message + mailMessage)
+    clientSocket.send(mailMessage.encode())
+    recv6 = clientSocket.recv(1024).decode()
 
     
 
@@ -82,9 +84,11 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Send QUIT command and handle server response.
     # Fill in start
 
+    quit = "QUIT:\r\n"
     clientSocket.send("QUIT\r\n".encode())
-    message = clientSocket.recv(1024)
-    clientSocket.close()
+    recv7 = clientSocket.recv(1024).decode()
+     
+ 
 
     # Fill in end
 
